@@ -1,2 +1,2 @@
-# Pet Disease Information Service
+# Pet Disease Information & Community Service
 python_programming_project
