@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>반려동물 질병 정보</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .header {
+            background-color: #dcf7dc;
+            color: rgb(72, 72, 72);
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 0px;
+        }
+        #searchResults {
+            margin-top: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #searchResults h2 {
+            margin-bottom: 20px;
+        }
+        #searchResults p {
+            margin-bottom: 15px;
+        }
+
+        .button-container {
+            position: fixed;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            /* flex-wrap: wrap; */
+            justify-content: center;
+            z-index: 1;
+            background-color: #fff;
+            padding: 9px;
+            border-radius: 7px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            margin: 5px;
+            padding: 8px 15px;
+            font-size: 15px;
+            border-radius: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+            border-color: #45a049;
+        }
+        button:focus {
+            outline: none;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 6px 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            background-color: rgb(255, 255, 255);
+            color: rgb(92, 91, 91);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 18px;
+            left: 40px;
+            font-family: Arial
+        }
+        .back-button:hover {
+            background-color: #df6767;
+            border-color: #f16969;
+        }    
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>반려동물 질병 정보 검색</h1>
+</div>
+
+<!-- 각 버튼을 누를 때 해당 질병 정보를 가져와 화면에 표시하는 함수 호출 -->
+<div class="button-container">
+    <button onclick="showDisease('렙토스피라증')">렙토스피라증</button>
+    <button onclick="showDisease('장염')">장염</button>
+    <button onclick="showDisease('골관절염')">골관절염</button>
+    <button onclick="showDisease('전염성 기관지염')">전염성 기관지염</button>
+    <button onclick="showDisease('피부농피증')">피부농피증</button>
+    <button onclick="showDisease('심장사상충 감염증')">심장사상충 감염증</button>
+</div>
+
+<!-- 뒤로 가기 버튼 -->
+<button class="back-button" onclick="goBack()">BACK</button>
+
+
+<div id="searchResults">
+    <!-- 이 부분에 질병 정보가 표시됩니다 -->
+</div>
+
+<script>
+    // 버튼을 누를 때 해당 질병 정보를 가져와 화면에 표시하는 함수
+    function showDisease(disease) {
+        // Flask 템플릿을 사용해 질병 정보를 가져오는 부분
+        var diseaseInfo = {
+        '렙토스피라증': {
+            '설명': '전 세계에 걸쳐 발견되는 렙도스피라라는 세균에 의해 발생하며 렙도스피라는 소변을 통하거나 오염된 물에 의해 전파된다.',
+            '증상': ['고열', '구토와 설사를 동반한 장염', '전형적 황달: 진한 소변색, 급격한 탈수, 충혈, 급성 신부전'],
+            '치료': ['세균성 질병이므로 항생제로 치료가능', '손상 장기에 대한 대증 치료도 필수', '깨끗하고 편안한 환경에서 간호'],
+            '예방': '백신에 의해 예방이 가능하다. 다만 백신에 의한 면역은 평생 가지 않기 때문에 매년 접종이 필수적이다. 병원체는 20도 이상의 온도에서 파괴되므로 밝은 햇빛아래서는 살 수 없다. 그러므로 개를 어두운 곳의 고인물에서 멀리하는 것이 좋다.'
+        },
+        '심장사상충 감염증': {
+            '설명': '심장사상충(Heartworm Disease)은 모기에 의해서 개. 고양이에게 감염되는 기생충이다. 30센티에 이르는 성충이 심장을 비롯한 심혈관계에 영향을 주어 생명에 영향을 줄 수 도 있는 위험한 질병이다.',
+            '증상': '심장사상충의 감염에 의해서 폐와 심장, 간, 신장 등의 복합적인 이상이 나타날 수 있다. 하지만 감염 수준, 성충의 숫자 혹은 개의 운동량 등에 따라서 증상은 다양하게 나타난다. 일반적으로 초기에는 눈에 띄는 증상이 보이지 않다가 기침을 하며 쉽게 지치는 등 기운이 없어지며, 소변에 피가 섞이거나, 숨쉬기 힘들어 하고, 배에 물이 차기도 한다. 심해지면 갑자기 죽는 경우도 발생할 수 있다',
+            '치료': '성충과 자충을 모두 없애 주는 것 이다. 이때 사용하는 치료약물에 대한 부작용을 무리 없이 극복하면서 죽은 성충에 의해 발생할 수 있는 폐혈관 혈전증과 같은 질환들을 얼마나 안전하게 관리하는지가 치료의 관건',
+            '예방': '심장사상충에 대한 가장 효과적인 대응 방안은 예방이다. 비록 심장사상충 감염에 대한 치료가 가능할 수는 있지만, 지속적인 예방을 하는 것이 훨씬 안전하고 경제적'
+        },
+        '골관절염': {
+            '설명': '골관절염은 염증과 연골의 파손을 동반하는 매우 고통스러운 질병이며 이는 궁극적으로 뼈를 변형시키는 진행성 질환이다. 개 5마리 중 1마리에서 이 질환에 의해 파행이 야기하는 가장 흔한 질병이다.',
+            '증상': '하나 이상의 관절에서 일어날 수 있으며 고통, 뻑뻑함, 부종, 파행 및 운동저하로 이어진다. 이는 결과적으로 삶의 질을 저하시키고 산책, 수영 등의 야외 활동을 방해한다. 보호자는 이러한 증상이 노화로 인한 것이라고 오해하기 쉽다',
+            '치료': '체중감소로 관절에 걸리는 부하를 감소시켜 준다. \n절제된 운동을 통해 근육과 관절을 강화 시켜준다.',
+            '예방': '골관절염을 예방하거나 발생을 지연시키기 위해 가장 중요한 것은 체중 관리이다. 이를 위해서는 항상 개의 체중과 몸의 상태를 체크해야 한다.'
+        },
+        '피부농피증': {
+            '설명': '피부에 세균이 감염 혹은 과다 증식하여 발생한 세균성 피부염을 피부 농피증이라고 한다. 농피증은 국소적으로 나타나거나 전신적으로 나타날 수 있으며, 피부의 바깥층인 표피층에서 일반적으로 나타난다. 하지만 표피층 안쪽까지 감염될 수 있으며, 이때에는 치료가 더 장기화될 수밖에 없다.',
+            '증상': '소양감, 탈모, 구진, 농포, 각질, 염증, 악취, 농',
+            '치료': '병변 관찰 후 피부조직이 변화와 병변의 sample을 채취하여 현미경 검사를 하여 어떤 원인체로 인한 감염인지의 여부를 확인하는 것으로 진단이 이루어진다. 농 샘플을 채취하여 배양을 하면 원인균을 찾아낼 수도 있고 적절한 항생제를 선택하는데 많은 도움을 줄 수 있다. 그러나 농피증의 진짜 원인을 찾아내는 것이 매우 중요하며 그래야만 장기적으로 피부질환을 관리할 수 있다. ',
+            '예방': '초기 진단 및 그에 따른 치료법을 찾는 것이 중요하다. 적절한 구충제로 정기적인 기생충 관리예방을 해줘야 한다.'
+        },
+        '장염':{
+            '설명':'장염(파보 바이러스)는 최근(1974)에 알려진 바이러스로서 전염이 매우 빠르고 특히 어린 강아지의 경우 심하면 종종 폐사를 유발하기도 한다. 파보 바이러스는 일반적으로 개의 창자, 임파 조직과 골수에 감염된다. 장염은 오심, 구토, 설사, 탈수가 특징이다. 대부분 부적절한 식이가 문제이며, 대증치료로 잘 개선된다. 전염병이나 이물 섭취로 인한 장염의 경우는 특별한 치료를 필요로 한다.',
+            '증상':'지속적이고 심한 구토, 지속적이고 분출성 설사, 식욕감퇴, 침울, 선홍색 구토, 고열, 허탈',
+            '치료':'급성장염의 치료는 거의 대증 치료와 증상에 대한 투약으로 이루어진다. (예, 구토/ 설사) 구토와 설사를 멎게 하는 것은 체액과 전해질 손실을 막기 위해 가장 중요하다. 항구토제는 구토를 막기 위한 약이고 수의사가 적절한 약을 처방하게 된다. 보조적 치료에는 균형잡힌 전해질 투여가 포함되며, 구토가 없다면 구강투여가 가능하고, 아니면 혈관주사를 이용한다. 짧은 금식 후에 소량의 자극이 없는 식이가 처방될 수 있다.',
+            '예방':'개는 원래 음식을 탐하는 본능을 가지고 있다. 하지만 가능하면 어릴 때부터 이런 행동을 억제하기를 권한다. 이에 대해서는 수의사나 행동전문가와 상의가 필요하다. 개는 음식의 변화에 잘 적응하지 못할 수 있기 때문에 음식을 바꿀 때는 몇 일 혹은 몇 주가 필요하다. 장에 손상을 주는 파보 같은 심각한 바이러스 질환을 예방하기 위해, 정기적인 백신을 해야 한다. 끝으로, 광범위 구충제로 일년에 최소 4번 구충을 해주어야 한다.'
+        },
+        '전염성 기관지염':{
+            '설명':'가장 흔하게 분리되는 세균은 보르도텔라 브론키셉티카(Bordetella bronchiseptica)이다. 감염된 개의 기침과 재채기를 통해 바이러스와 세균이 공기 중에 퍼지게 되고, 사육장이나 독쇼 같은 많은 개가 접촉하는 곳에서는 빠르게 퍼질 수 있다. 병원체는 상부 호흡기와 기관에 손상을 주어 기침을 발생하게 한다',
+            '증상':'주로 보이는 증상은 기침인데, 개체와 병원체에 따라 정도와 기간은 다르다. 많은 경우에 깊고, 마른 기침을 보이고 울컥거림, 재채기, 그르렁거림, 구역질, 구토 등을 동반한다. 기침은 흥분이나 운동 이후에 종종 발생한다. 콧물이나 눈물이 관찰되며, 열이 있을 수 있고, 간혹 폐렴으로 발전하기도 한다.증상은 감염 후 3-10일 후 발생하며, 3주 이상 지속될 수 있다.',
+            '치료':'기관지 확장제, 소염제, 진해제-기침의 타입에 따라 적절할 수 있다.',
+            '예방':'보르데텔라 브론키셉티카(Bordetella bronchiseptica), 파라인플루엔자(Parainfluenza)에 대한 켄넬코프 백신으로 예방할 수 있다. 사육장에서는 최근에 백신접종을 하지 않은 개는 받아주지 않는다. 그러므로 사육장이나 독쇼 가기 전에 백신접종은 필수적이다. 하지만 이런 백신이 기침을 일으키는 모든 원인을 막지 못한다는 점을 알아야 한다.'
+        },
+        
+        };
+
+        // 선택한 질병 정보를 가져와 HTML에 동적으로 추가
+        var resultDiv = document.getElementById('searchResults');
+        resultDiv.innerHTML = '<div class="disease-info">' +
+            '<div class="info-section">' +
+            '<h2>' + disease + '</h2>' +
+            '</div>' +
+            '<div class="info-section">' +
+            '<p><strong>설명</strong></p>' +
+            '<p>' + diseaseInfo[disease]['설명'] + '</p>' +
+            '</div>' +
+            '<div class="info-section">' +
+            '<p><strong>증상</strong></p>' +
+            '<p>' + diseaseInfo[disease]['증상'] + '</p>' +
+            '</div>' +
+            '<div class="info-section">' +
+            '<p><strong>치료</strong></p>' +
+            '<p>' + diseaseInfo[disease]['치료'] + '</p>' +
+            '</div>' +
+            '<div class="info-section">' +
+            '<p><strong>예방</strong></p>' +
+            '<p>' + diseaseInfo[disease]['예방'] + '</p>' +
+            '</div>' +
+            '</div>';
+    }
+    function goBack() {
+        window.history.back();
+    }
+
+</script>
+
+<style>
+    /* 질병 정보 스타일 */
+    .disease-info {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        background-color: #f9f9f9;
+        padding: 18px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 5px;
+    }
+    .info-section {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+    }
+    .info-section p {
+        margin: 0;
+        color: #666;
+    }
+    .info-section strong {
+        color: #000;
+    }
+</style>
+
+
+</body>
+</html>
+
