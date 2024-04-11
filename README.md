@@ -1,4 +1,4 @@
-# DoggyDialogue Web-Service 🐕
+# DoggyDialogue Web-Service 🐕
 ### 설명
 ---
 DoggyDialogue는 반려견 질병정보 도우미 서비스이자 반려견을 키우는 사람들을 위한 필수 웹 서비스이다.
